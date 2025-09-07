@@ -1,0 +1,308 @@
+:root{
+  /* --- Colores (tema claro por defecto) --- */
+  --nav-bg: #ffffff;
+  --nav-bg-rgb: 255 255 255;    /* para rgba() */
+  --slate: #475569;             /* texto/elementos terciarios */
+  --light: #0f172a;             /* texto oscuro para títulos/activos */
+  --accent: #2563eb;            /* acento (azul) */
+  --glass: rgba(255,255,255,0.6);
+  --muted: #64748b;
+  --border-weak: rgba(15,23,42,0.06);
+
+  /* --- Sombras / radios / transiciones --- */
+  --shadow: 0 6px 20px rgba(2,6,23,0.06);
+  --radius: 10px;
+  --backdrop-blur: 6px;
+  --transition-fast: 180ms;
+
+  /* --- Tamaños relativos (útiles por todo el proyecto) --- */
+  /* alturas / controles */
+  --nav-height: 72px;
+  --logo-size: 46px;
+  --logo-size-mobile: 40px;
+  --control-size: 44px;         /* botones pequeños (theme, iconos) */
+  --toggler-width: 48px;
+
+  /* espaciados */
+  --space-xxs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+
+  /* tipografías / escalas */
+  --fs-xxs: 0.625rem; /* 10px */
+  --fs-xs: 0.75rem;   /* 12px */
+  --fs-sm: 0.875rem;  /* 14px */
+  --fs-base: 1rem;    /* 16px */
+  --fs-lg: 1.125rem;  /* 18px */
+  --fs-xl: 1.25rem;   /* 20px */
+
+  /* gaps y utilidades */
+  --gap-xs: 0.4rem;
+  --gap-sm: 0.6rem;
+  --gap-md: 1rem;
+
+  /* padding navbar (relativo) */
+  --nav-pad-vert: 0.85rem;
+  --nav-pad-horz: 1.25rem;
+}
+
+/* Tema oscuro: sobrescribe variables cuando se aplica data-theme="dark" */
+:root[data-theme="dark"],
+html[data-theme="dark"] {
+  --nav-bg: #0a192f;
+  --nav-bg-rgb: 10 25 47;
+  --slate: #8892b0;
+  --light: #e6f1ff;
+  --accent: #64ffda;
+  --glass: rgba(10,25,47,0.55);
+  --muted: rgba(200,210,255,0.08);
+  --shadow: 0 8px 30px rgba(2,6,23,0.6);
+  --border-weak: rgba(255,255,255,0.03);
+}
+
+body {
+  background-color: var(--nav-bg);
+  color: var(--slate);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.custom-navbar {
+  height: var(--nav-height);
+  background: linear-gradient(180deg, rgba(var(--nav-bg-rgb),0.98), rgba(var(--nav-bg-rgb),0.96));
+  backdrop-filter: blur(var(--backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--backdrop-blur));
+  padding: var(--nav-pad-vert) var(--nav-pad-horz);
+  border-bottom: 1px solid var(--border-weak);
+  box-shadow: var(--shadow);
+  border-radius: 0 0 var(--radius) var(--radius);
+  align-items: center;
+}
+
+/* LOGO */
+.navbar-brand {
+  display:flex;
+  align-items:center;
+  gap: var(--gap-sm);
+  font-weight:800;
+  color:var(--light);
+  text-decoration:none;
+  font-size: var(--fs-lg);
+  color: #5D688A;
+  font-family: "Audiowide", sans-serif;
+}
+.navbar-logo {
+  height: var(--logo-size);
+  width: var(--logo-size);
+  object-fit:cover;
+  border-radius: calc(var(--radius) - 2px);
+  box-shadow: 0 2px 8px rgba(2,6,23,0.08), 0 0 0 2px rgba(136,146,176,0.06);
+  border: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.navbar-brand:hover .navbar-logo { transform: translateY(-3px) scale(1.02); }
+
+/* NAV ITEMS */
+.navbar-nav { align-items:center; }
+.nav-link {
+  color: var(--slate) !important;
+  margin: 0 .55rem;
+  font-weight: 500;
+  font-size: var(--fs-sm);
+  font-family: "Orbitron", sans-serif;
+  transition: color .18s ease, transform .12s ease;
+  padding: .35rem .3rem;
+  border-radius: 10px;
+}
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--light) !important;
+  transform: translateY(-1px);
+  text-decoration: none;
+  outline: none;
+  background: linear-gradient(90deg, rgba(var(--nav-bg-rgb),0.02), transparent);
+}
+.nav-link.active,
+.nav-link[aria-current="page"] {
+  color: var(--light) !important;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: .2rem;
+}
+
+/* TOGGLER (móvil) - hamburguesa */
+.navbar-toggler {
+  border: 1px solid rgba(var(--nav-bg-rgb),0.06);
+  padding: .35rem .5rem;
+  width: var(--toggler-width);
+  height: var(--control-size);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: transparent;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.navbar-toggler:focus { box-shadow: 0 0 0 4px rgba(37,99,235,0.08); }
+
+.hamburger {
+  position: relative;
+  width:22px;
+  height:2px;
+  background: var(--slate);
+  transition: background .12s ease;
+}
+.hamburger::before,
+.hamburger::after {
+  content:"";
+  position:absolute;
+  left:0;
+  width:22px;
+  height:2px;
+  background: var(--slate);
+  transition: transform .22s ease, top .12s ease, opacity .12s ease;
+}
+.hamburger::before { top: -7px; }
+.hamburger::after  { top: 7px; }
+
+/* estado X cuando está expandido (Bootstrap actualiza aria-expanded) */
+.navbar-toggler[aria-expanded="true"] .hamburger { background: transparent; }
+.navbar-toggler[aria-expanded="true"] .hamburger::before { transform: translateY(7px) rotate(45deg); }
+.navbar-toggler[aria-expanded="true"] .hamburger::after  { transform: translateY(-7px) rotate(-45deg); }
+
+/* THEME TOGGLE */
+.theme-toggle {
+  position: relative; /* Para posicionar los iconos absolutamente dentro */
+  display:inline-grid;
+  place-items:center;
+  width: var(--control-size);
+  height: var(--control-size);
+  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid rgba(var(--nav-bg-rgb),0.06);
+  background: linear-gradient(180deg, rgba(var(--nav-bg-rgb),0.03), transparent);
+  transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+}
+.theme-toggle:focus { box-shadow: 0 6px 18px rgba(37,99,235,0.12); outline: none; }
+
+/* SVG iconos */
+.theme-icon {
+  position: absolute; /* Apilar los iconos */
+  width:20px;
+  height:20px;
+  display:block;
+  transition: transform .28s ease, opacity .18s ease;
+}
+.icon-sun { transform-origin: center; }
+.icon-moon { transform-origin: center; opacity:0; transform: rotate(20deg) scale(.6); }
+
+.color-footer {
+  background-color: #111827 !important;
+  color: #ffffff !important;
+}
+.color-footer p {
+  color: #8892b0 !important; /* gris azulado */
+}
+
+
+/* mostramos moon en tema oscuro */
+:root[data-theme="dark"] .icon-sun { opacity:0; transform: rotate(-20deg) scale(.6); }
+:root[data-theme="dark"] .icon-moon { opacity:1; transform: rotate(0deg) scale(1); }
+
+/* MOBILE adjustments */
+@media screen and (max-width: 767px) {
+  .nav-link { padding: .5rem 0; margin: 0; }
+  .navbar-logo { height: var(--logo-size-mobile); width: var(--logo-size-mobile); }
+  .brand-text { font-size: var(--fs-sm); }
+}
+
+.card.terminal-static {
+  background-color: #1e2a47; /* Un azul oscuro profundo */
+  color: #e6f1ff;
+  border: 1px solid #3c4d69;
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  font-family: 'Fira Code', 'Source Code Pro', monospace;
+  font-size: var(--fs-sm);
+  height: 100%; /* Para que ocupe toda la altura de la columna */
+}
+
+.card.terminal-static pre,
+.card.terminal-static code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+  white-space: pre-wrap; /* Para que el texto se ajuste */
+  font-family: inherit;
+}
+
+.terminal-static .prompt-user {
+  color: #82e082; /* Verde */
+}
+
+.terminal-static .prompt-line {
+  color: #c488ff; /* Púrpura */
+}
+
+.terminal-static .command {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.terminal-static .neofetch-title {
+  color: #78aadf; /* Azul claro */
+}
+
+.terminal-static .neofetch-item {
+  color: #ff9f80; /* Naranja/coral */
+}
+
+.skill-card {
+  background-color: var(--muted);
+  border: 1px solid var(--border-weak);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  height: 100%;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.skill-card .card-title {
+  color: var(--light);
+  font-weight: 700;
+  font-family: "Orbitron", sans-serif;
+}
+
+.skill-item {
+  margin-top: var(--space-md);
+}
+
+.skill-item .skill-name {
+  display: flex;
+  justify-content: space-between;
+  color: var(--light);
+  font-weight: 500;
+  font-size: var(--fs-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.skill-item .skill-level {
+  font-size: var(--fs-xs);
+  color: var(--slate);
+}
+
+.progress {
+  height: 10px;
+  background-color: rgba(var(--nav-bg-rgb), 0.5);
+  border-radius: 5px;
+}
+
+.progress-bar {
+  background-color: var(--accent);
+  border-radius: 5px;
+}
