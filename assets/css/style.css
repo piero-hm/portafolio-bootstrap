@@ -1,362 +1,339 @@
-/* ==========================
-   VARIABLES GLOBALES (THEME)
-   ==========================
-   Aquí definimos las variables CSS reutilizables para colores,
-   tamaños, espacios y animaciones. Facilita cambiar el tema
-   desde un solo lugar.
-*/
-:root{
-  /* --- Colores (tema claro por defecto) --- */
-  --nav-bg: #ffffff;                    /* fondo principal (navbar / fondo claro) */
-  --nav-bg-rgb: 255 255 255;            /* versión RGB para usar en rgba() */
-  --slate: #475569;                     /* color principal de texto / elementos secundarios */
-  --light: #0f172a;                     /* color de texto fuerte (títulos, activos) */
-  --accent: #2563eb;                    /* color de acento (botones, bordes) */
-  --glass: rgba(255,255,255,0.6);       /* efecto vidrio translúcido */
-  --muted: #64748b;                     /* color de fondo para tarjetas secundarias */
-  --border-weak: rgba(15,23,42,0.06);   /* bordes suaves */
 
-  /* --- Sombras / radios / transiciones --- */
-  --shadow: 0 6px 20px rgba(2,6,23,0.06); /* sombra principal */
-  --radius: 10px;                         /* radio de bordes global */
-  --backdrop-blur: 6px;                   /* blur para backdrop-filter */
-  --transition-fast: 180ms;               /* duración rápida para transiciones */
-
-  /* --- Tamaños relativos (útiles por todo el proyecto) --- */
-  /* alturas / controles */
-  --nav-height: 72px;         /* altura de la navbar */
-  --logo-size: 46px;          /* tamaño del logo en desktop */
-  --logo-size-mobile: 40px;   /* tamaño del logo en móvil */
-  --control-size: 44px;       /* tamaño para botones pequeños (theme, iconos) */
-  --toggler-width: 48px;      /* ancho del botón toggler (hamburguesa) */
-
-  /* espaciados */
-  --space-xxs: 0.25rem;
-  --space-xs: 0.5rem;
-  --space-sm: 0.75rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-
-  /* tipografías / escalas */
-  --fs-xxs: 0.625rem; /* 10px */
-  --fs-xs: 0.75rem;   /* 12px */
-  --fs-sm: 0.875rem;  /* 14px */
-  --fs-base: 1rem;    /* 16px */
-  --fs-lg: 1.125rem;  /* 18px */
-  --fs-xl: 1.25rem;   /* 20px */
-
-  /* gaps y utilidades */
-  --gap-xs: 0.4rem;
-  --gap-sm: 0.6rem;
-  --gap-md: 1rem;
-
-  /* padding navbar (relativo) */
-  --nav-pad-vert: 0.85rem;
-  --nav-pad-horz: 1.25rem;
+/* Paleta de colores y variables de Bootstrap */
+:root {
+  --bs-body-bg: #1a1a1a;
+  --bs-body-color: #f0f2f5;
+  --bs-primary: #0d6efd; /* Azul vibrante para acentos */
+  --bs-secondary: #6c757d;
+  --bs-light: #343a40;
+  --bs-dark: #1a1a1a;
+  --bs-border-color: #495057;
 }
 
-/* ==========================
-   TEMA OSCURO (SOBREESCRIBIR)
-   ==========================
-   Estas variables se aplican cuando <html> o :root tiene data-theme="dark".
-   Cambian colores principales a versiones para modo oscuro.
-*/
-:root[data-theme="dark"],
-html[data-theme="dark"] {
-  --nav-bg: #0a192f;
-  --nav-bg-rgb: 10 25 47;
-  --slate: #8892b0;
-  --light: #e6f1ff;
-  --accent: #64ffda;
-  --glass: rgba(10,25,47,0.55);
-  --muted: rgba(200,210,255,0.08);
-  --shadow: 0 8px 30px rgba(2,6,23,0.6);
-  --border-weak: rgba(255,255,255,0.03);
-}
-
-/* ==========================
-   REGLAS GLOBALES
-   ==========================
-*/
 body {
-  /* fondo y texto principales basados en variables */
-  background-color: var(--nav-bg);
-  color: var(--slate);
-  /* transiciones suaves al cambiar tema/colores */
-  transition: background-color var(--transition-fast), color var(--transition-fast);
-  /* pila de fuentes segura */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Urbanist', sans-serif;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
 }
 
-/* ==========================
-   NAVBAR (barra superior)
-   ==========================
-   estilo principal de la barra: altura, padding, fondo con ligero gradiente,
-   blur de fondo, borde inferior, sombra y esquinas redondeadas abajo.
-*/
+/* Animación de entrada para el contenido */
+main {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Barra de navegación personalizada */
 .custom-navbar {
-  height: var(--nav-height);
-  background: linear-gradient(180deg, rgba(var(--nav-bg-rgb),0.98), rgba(var(--nav-bg-rgb),0.96));
-  backdrop-filter: blur(var(--backdrop-blur));
-  -webkit-backdrop-filter: blur(var(--backdrop-blur));
-  padding: var(--nav-pad-vert) var(--nav-pad-horz);
-  border-bottom: 1px solid var(--border-weak);
-  box-shadow: var(--shadow);
-  border-radius: 0 0 var(--radius) var(--radius);
-  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  background-color: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
 
-/* ==========================
-   LOGO / BRAND
-   ==========================
-   .navbar-brand agrupa el logo y el texto de marca; .navbar-logo controla
-   el tamaño, bordes, sombra y animación al hacer hover.
-*/
-.navbar-brand {
-  display:flex;
-  align-items:center;
-  gap: var(--gap-sm);
-  font-weight:800;
-  color:var(--light);               /* color por defecto para el texto de marca */
-  text-decoration:none;
-  font-size: var(--fs-lg);
-  color: #5D688A;                   /* color personalizado (sobrescribe var) */
-  font-family: "Audiowide", sans-serif;
+.navbar-brand .brand-text {
+  font-family: 'Audiowide', cursive;
+  font-size: 1.5rem;
+  color: var(--bs-primary);
 }
-.navbar-logo {
-  height: var(--logo-size);
-  width: var(--logo-size);
-  object-fit:cover;
-  border-radius: calc(var(--radius) - 2px);
-  box-shadow: 0 2px 8px rgba(2,6,23,0.08), 0 0 0 2px rgba(136,146,176,0.06);
-  border: none;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-/* pequeño efecto flotante al pasar el ratón sobre la marca */
-.navbar-brand:hover .navbar-logo { transform: translateY(-3px) scale(1.02); }
 
-/* ==========================
-   NAV ITEMS (enlaces de navegación)
-   ==========================
-   diseño de los links: color, espaciado, fuente, efectos hover y estado activo.
-*/
-.navbar-nav { align-items:center; }
 .nav-link {
-  color: var(--slate) !important; /* forzar color aunque Bootstrap tenga reglas */
-  margin: 0 .55rem;
-  font-weight: 500;
-  font-size: var(--fs-sm);
-  font-family: "Orbitron", sans-serif;
-  transition: color .18s ease, transform .12s ease;
-  padding: .35rem .3rem;
-  border-radius: 10px;
-}
-.nav-link:hover,
-.nav-link:focus {
-  /* hover / focus: color más fuerte, leve elevación visual */
-  color: var(--light) !important;
-  transform: translateY(-1px);
-  text-decoration: none;
-  outline: none;
-  background: linear-gradient(90deg, rgba(var(--nav-bg-rgb),0.02), transparent);
-}
-/* estado "activo" o la página actual */
-.nav-link.active,
-.nav-link[aria-current="page"] {
-  color: var(--light) !important;
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: .2rem;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
-/* ==========================
-   TOGGLER (botón hamburguesa en móvil)
-   ==========================
-   estilo del botón, tamaño, borde y foco accesible.
-*/
+.nav-link:hover {
+  color: var(--bs-primary);
+  transform: translateY(-2px);
+}
+
+.nav-link.active {
+  color: var(--bs-primary) !important;
+  font-weight: bold;
+}
+
+/* Estilo del "hamburguer" del menú */
 .navbar-toggler {
-  border: 1px solid rgba(var(--nav-bg-rgb),0.06);
-  padding: .35rem .5rem;
-  width: var(--toggler-width);
-  height: var(--control-size);
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: transparent;
-  transition: background var(--transition-fast), transform var(--transition-fast);
+  border: none;
 }
-.navbar-toggler:focus { box-shadow: 0 0 0 4px rgba(37,99,235,0.08); }
 
-/* La "hamburguesa" se construye con pseudo-elementos y se transforma a "X" cuando está abierto */
 .hamburger {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--bs-body-color);
   position: relative;
-  width:22px;
-  height:2px;
-  background: var(--slate);
-  transition: background .12s ease;
+  transition: transform 0.3s ease;
 }
+
 .hamburger::before,
 .hamburger::after {
-  content:"";
-  position:absolute;
-  left:0;
-  width:22px;
-  height:2px;
-  background: var(--slate);
-  transition: transform .22s ease, top .12s ease, opacity .12s ease;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: var(--bs-body-color);
+  left: 0;
+  transition: all 0.3s ease;
 }
-.hamburger::before { top: -7px; }
-.hamburger::after  { top: 7px; }
 
-/* Cuando Bootstrap añade aria-expanded="true" convertimos la hamburguesa en X */
-.navbar-toggler[aria-expanded="true"] .hamburger { background: transparent; }
-.navbar-toggler[aria-expanded="true"] .hamburger::before { transform: translateY(7px) rotate(45deg); }
-.navbar-toggler[aria-expanded="true"] .hamburger::after  { transform: translateY(-7px) rotate(-45deg); }
-
-/* ==========================
-   THEME TOGGLE (botón de sol/luna)
-   ==========================
-   botón cuadrado que contiene dos iconos (sol y luna) posicionados uno sobre otro.
-   Se controla visualmente mostrando/ocultando los iconos con opacity/transform.
-*/
-.theme-toggle {
-  position: relative; /* Para posicionar los iconos absolutamente dentro */
-  display:inline-grid;
-  place-items:center;
-  width: var(--control-size);
-  height: var(--control-size);
-  border-radius: calc(var(--radius) - 2px);
-  border: 1px solid rgba(var(--nav-bg-rgb),0.06);
-  background: linear-gradient(180deg, rgba(var(--nav-bg-rgb),0.03), transparent);
-  transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+.hamburger::before {
+  top: -8px;
 }
-.theme-toggle:focus { box-shadow: 0 6px 18px rgba(37,99,235,0.12); outline: none; }
 
-/* SVG iconos apilados */
-.theme-icon {
-  position: absolute; /* Apilar los iconos */
-  width:20px;
-  height:20px;
-  display:block;
-  transition: transform .28s ease, opacity .18s ease;
+.hamburger::after {
+  bottom: -8px;
 }
-.icon-sun { transform-origin: center; }
-.icon-moon { transform-origin: center; opacity:0; transform: rotate(20deg) scale(.6); }
 
-/* ==========================
-   FOOTER (colores del footer)
-   ========================== */
+.navbar-toggler:not(.collapsed) .hamburger {
+  transform: rotate(45deg);
+}
+
+.navbar-toggler:not(.collapsed) .hamburger::before {
+  top: 0;
+  opacity: 0;
+}
+
+.navbar-toggler:not(.collapsed) .hamburger::after {
+  bottom: 0;
+  transform: rotate(-90deg);
+}
+
+
+/* Sección principal */
+.display-4 {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--bs-primary);
+}
+
+.text-muted {
+  color: #adb5bd !important;
+}
+
+/* Botones con animación */
+.btn {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.btn-outline-secondary {
+  color: var(--bs-body-color);
+  border-color: var(--bs-secondary);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--bs-secondary);
+  color: #fff;
+}
+
+/* Imagen con sombra y animación */
+.rounded-circle {
+  border: 5px solid var(--bs-primary);
+  box-shadow: 0 0 20px rgba(13, 110, 253, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rounded-circle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(13, 110, 253, 0.7);
+}
+
+/* Footer */
 .color-footer {
-  background-color: #111827 !important;
-  color: #ffffff !important;
-}
-.color-footer p {
-  color: #8892b0 !important; /* gris azulado para texto secundario */
+  background-color: var(--bs-dark);
+  color: var(--bs-body-color);
 }
 
-/* Cuando el tema es oscuro queremos mostrar la luna y ocultar el sol */
-:root[data-theme="dark"] .icon-sun { opacity:0; transform: rotate(-20deg) scale(.6); }
-:root[data-theme="dark"] .icon-moon { opacity:1; transform: rotate(0deg) scale(1); }
-
-/* ==========================
-   MOBILE ADJUSTMENTS
-   ==========================
-   Cambios puntuales para pantallas pequeñas.
-*/
-@media screen and (max-width: 767px) {
-  .nav-link { padding: .5rem 0; margin: 0; }                  /* enlaces en columna */
-  .navbar-logo { height: var(--logo-size-mobile); width: var(--logo-size-mobile); } /* logo más pequeño */
-  .brand-text { font-size: var(--fs-sm); }                    /* texto de marca reducido */
+.link-secondary i {
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
-/* ==========================
-   TARJETA "TERMINAL" (estética)
-   ==========================
-   Card con aspecto de terminal: fondo oscuro, fuente monospace y colores
-   de sintaxis para las distintas partes del texto.
-*/
-.card.terminal-static {
-  background-color: #1e2a47; /* fondo oscuro profundo */
-  color: #e6f1ff;
-  border: 1px solid #3c4d69;
-  border-radius: var(--radius);
-  padding: var(--space-md);
-  font-family: 'Fira Code', 'Source Code Pro', monospace;
-  font-size: var(--fs-sm);
-  height: 100%; /* ocupa toda la altura de su contenedor */
+.link-secondary i:hover {
+  color: var(--bs-primary);
+  transform: translateY(-3px);
 }
-.card.terminal-static pre,
-.card.terminal-static code {
-  background: transparent;
-  color: inherit;
-  padding: 0;
+
+/* Estilos para la terminal estática */
+.terminal-static {
+  background-color: #0d1117;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 8px;
+  padding: 20px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+  color: #c9d1d9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.terminal-static pre {
   margin: 0;
-  white-space: pre-wrap; /* permite ajustar líneas largas */
-  font-family: inherit;
+  white-space: pre-wrap;
 }
 
-/* Colores para partes "sintácticas" dentro de la terminal */
-.terminal-static .prompt-user { color: #82e082; /* verde para prompt */ }
-.terminal-static .prompt-line { color: #c488ff; /* púrpura para líneas */ }
-.terminal-static .command { color: #ffffff; font-weight: 500; }
-.terminal-static .neofetch-title { color: #78aadf; }
-.terminal-static .neofetch-item { color: #ff9f80; }
+.terminal-static .prompt-user {
+  color: #58a6ff;
+}
 
-/* ==========================
-   SKILL CARDS (tarjetas de habilidades)
-   ==========================
-   Estilos para las tarjetas que muestran habilidades (hover, fondo, título).
-*/
+.terminal-static .prompt-line {
+  color: #8b949e;
+}
+
+.terminal-static .command {
+  color: #79c0ff;
+}
+
+.terminal-static .neofetch-title {
+  color: #58a6ff;
+  font-weight: bold;
+}
+
+.terminal-static .neofetch-item {
+  color: #c9d1d9;
+}
+
+/* Estilos para las tarjetas de habilidades */
 .skill-card {
-  background-color: var(--muted);
-  border: 1px solid var(--border-weak);
-  border-radius: var(--radius);
-  padding: var(--space-lg);
+  background-color: var(--bs-light);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 8px;
+  padding: 20px;
   height: 100%;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .skill-card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow);
-}
-.skill-card .card-title {
-  color: var(--light);
-  font-weight: 700;
-  font-family: "Orbitron", sans-serif;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* ==========================
-   ITEM DE SKILL (nombre + barra)
-   ==========================
-   Espaciado, alineación entre nombre y nivel, y estilos de texto.
-*/
-.skill-item {
-  margin-top: var(--space-md);
+.skill-card .card-title {
+  color: var(--bs-primary);
+  font-weight: bold;
 }
-.skill-item .skill-name {
+
+.skill-item {
+  margin-top: 20px;
+}
+
+.skill-name {
   display: flex;
   justify-content: space-between;
-  color: var(--light);
-  font-weight: 500;
-  font-size: var(--fs-sm);
-  margin-bottom: var(--space-xs);
-}
-.skill-item .skill-level {
-  font-size: var(--fs-xs);
-  color: var(--slate);
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-/* ==========================
-   BARRAS DE PROGRESO (progress)
-   ==========================
-   Altura, fondo suave y color de la barra interna.
-*/
 .progress {
   height: 10px;
-  background-color: rgba(var(--nav-bg-rgb), 0.5);
-  border-radius: 5px;
+  background-color: #495057;
 }
+
 .progress-bar {
-  background-color: var(--accent);
-  border-radius: 5px;
+  background-color: var(--bs-primary);
+}
+
+.progress-bar.animate {
+  animation: progressBar 2s ease-in-out;
+}
+
+@keyframes progressBar {
+  from {
+    width: 0;
+  }
+}
+
+/* Estilos para las tarjetas de proyectos */
+.card {
+  background-color: var(--bs-light);
+  border: 1px solid var(--bs-border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card .card-title {
+  color: var(--bs-primary);
+  font-weight: bold;
+}
+
+/* Estilos para el formulario de contacto */
+.form-control {
+  background-color: var(--bs-light);
+  border: 1px solid var(--bs-border-color);
+  color: var(--bs-body-color);
+}
+
+.form-control:focus {
+  background-color: var(--bs-light);
+  border-color: var(--bs-primary);
+  color: var(--bs-body-color);
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-label {
+  color: var(--bs-body-color);
+}
+
+/* Botón para volver arriba */
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--bs-primary);
+  color: white;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+}
+
+.scroll-to-top:hover {
+  background-color: #0b5ed7;
+}
+
+.scroll-to-top.show {
+  display: block;
+}
+
+/* Estilos para la página Sobre Mí con Parallax y Glassmorphism */
+body.sobre-mi-page {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.glass-card {
+  background: rgba(34, 34, 34, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 30px;
 }
